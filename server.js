@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 var id=0;
 var books={};
-books[++id]= {_id: id, author: "dashing"};
+books[++id]= {_id: id, author: "dashing",title: "sign of foru"};
 
 app.get('/books/:id',function(req,res){
   var id = parseInt(req.params.id,10);
