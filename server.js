@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 var id=0;
 var books={};
-books[++id]= {id: id, author: "dashing"};
+books[++id]= {_id: id, author: "dashing"};
 
 app.get('/books/:id',function(req,res){
   var id = parseInt(req.params.id,10);
@@ -22,8 +22,8 @@ app.put('/books/:id', function(req,res){
 
 app.post('/books',function(req,res){
   var book=req.body;
-  book.id=++id;
-  books[book.id]=book;
+  book._id=++id;
+  books[book._id]=book;
   res.json(book);
 });
 

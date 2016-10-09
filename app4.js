@@ -1,4 +1,4 @@
 var Book= Backbone.Model.extend({
-  urlRoot: '/books'
-  
+  urlRoot: '/books',
+  idAttribute: '_id'
 });
