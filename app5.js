@@ -21,3 +21,9 @@ var Book =Backbone.Model.extend({
   return this.get('chapters')== this.get('current');
  }
 });
+
+var Books=Backbone.Collection.extend({
+  model: Book
+});
+
+var books=new Books();
