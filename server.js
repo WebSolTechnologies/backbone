@@ -7,7 +7,6 @@ app.use(bodyParser.json());
 
 var id=0;
 var books={};
-books[++id]= {id: id, author: "dashing",title: "sign of foru"};
 
 app.get('/books',function(req,res){
   res.json(Object.keys(books).map(function(id){
