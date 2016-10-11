@@ -9,6 +9,12 @@ var id=0;
 var books={};
 books[++id]= {_id: id, author: "dashing",title: "sign of foru"};
 
+app.get('/books',function(req,res){
+  res.json(Object.keys(books).map(function(id){
+    return books[id];
+  }));
+});
+
 app.get('/books/:id',function(req,res){
   var id = parseInt(req.params.id,10);
   res.json(books[id]);

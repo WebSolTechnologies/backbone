@@ -3,8 +3,7 @@ var Book =Backbone.Model.extend({
     chapters: 5,
     current: 1
   },
-  urlRoot: '/books',
-
+//urlRoot: '/books'
 
  validate: function(attrs,opts){
   if (attrs.published && typeof attrs.published !== 'number'){
@@ -23,7 +22,7 @@ var Book =Backbone.Model.extend({
 });
 
 var Books=Backbone.Collection.extend({
-  model: Book
+  model: Book,
+  url: '/books'
 });
 
-var books=new Books();
