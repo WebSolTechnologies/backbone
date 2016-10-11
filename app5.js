@@ -66,3 +66,20 @@ request
 sync
 error
 */
+
+
+
+var BookView= Backbone.View.extend({
+  tagName: 'li',
+  className: 'book book-item',
+  attributes: function(){
+    return {
+      'data-client-id': this.model.cid
+    };
+  }
+});
+
+
+var MainView = Backbone.View.extend({
+  el: '#main'
+})
