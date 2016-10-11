@@ -28,6 +28,18 @@ var Books=Backbone.Collection.extend({
 
 var books= new Books();
 
+
+var main=$('#main');
+
+books.on('add',function(model){
+  model.view= $("<h3>").text(model.get('title') + '(' + model.get('author') + ')');
+  main.append(model.view);
+});
+
+books.on('remove', function(model){
+  model.view.remove();
+});
+
 books.create({author: 'bilal', title: 'mar jao'});
 books.create({author: 'bilal', title: 'mari jao'});
 books.create({author: 'al', title: 'marojao'});
@@ -42,4 +54,15 @@ can be function
 books.comparator = function(modela,modelb){return modela.get('author').length -modelb.get('author').length}
 
 books.sort();
+*/
+
+
+/* collection events
+add
+remove
+reset
+sort
+request
+sync
+error
 */
