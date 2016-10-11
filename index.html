@@ -8,11 +8,19 @@
   <script type="text/template" id='BookViewTemplate'>
     <h2><%= title %></h2>
     <h3><%= author %></h3>
+    <p> <button class="remove"> Remove</button></p>
   </script>
   <script type="text/template" id='BooksViewTemplate'>
-   <h1>books(<%=length %>)</h1>
+   <h1>books(<span><%=length %></span>)</h1>
    <ul></ul>
   </script>
+  <script type="text/template" id='AddBookViewTemplate'>
+   <p>Tiitle:<input  id='title'></p>   
+   <p> Author: <input  id='author'></p>
+   <p> <button class="add"> add</button></p>
+  </script>
+
+
 
 
   <script src='lib/jquery.js'></script>

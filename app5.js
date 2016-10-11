@@ -72,26 +72,72 @@ error
 var BookView= Backbone.View.extend({
   tagName: 'li',
   template: _.template($("#BookViewTemplate").html()),
+  events: {
+    'click .remove' : 'removeModel'
+  },
   render: function(){
     this.el.innerHTML = this.template(this.model.toJSON())
     return this;
+  },
+  removeModel: function(model){
+    this.model.collection.remove(this.model);
   }
 });
 
 var BooksView= Backbone.View.extend({
+  initialize: function(){
+    this.listenTo(this.collection,'remove', this.removeBook);
+    this.listenTo(this.collection,'add',this.addBook);
+
+    this.listenTo(this.colllection,'remove',this.updateNum);
+    this.listenTo(this.colllection,'add',this.updateNum);
+
+  },
+  children: {},
   template: _.template($("#BooksViewTemplate").html()),
   render: function(){
     this.el.innerHTML= this.template(this.collection);
     var ul = this.$('ul');
-    this.collection.each(function(model){
-      var bookView= new BookView({model: model});
-      ul.append(bookView.render().el);
-    })
+    this.collection.each(this.addBook.bind(this));
     return this;
+  },
+  addBook: function(model){
+    var ul = this.$('ul');
+    this.children[model.cid]= new BookView({model: model});
+    ul.append(this.children[model.cid].render().el);
+  },
+  removeBook: function(model){
+    this.children[model.cid].remove();
+  },
+  updateNum: function(){
+    this.$('this.span').text(this.collection.length);
   }
 
-})
+});
+
+var AddBookView= Backbone.View.extend({
+  template: _.template($("#AddBookViewTemplate").html()),
+  events: {
+    'click .add' : 'addBook'
+  },
+  render: function(){
+    this.el.innerHTML =this.template();
+    return this;
+  },
+  addBook: function(evt){
+    this.collection.add({
+      title: this.$('#title').val(),
+      author: this.$('#author').val()
+    });
+
+  }
 
 
+});
+
+
+
+var addBookView= new AddBookView({collection: books})
 var booksView= new BooksView({collection: books});
+main.append(addBookView.render().el)
 main.append(booksView.render().el);
