@@ -26,3 +26,20 @@ var Books=Backbone.Collection.extend({
   url: '/books'
 });
 
+var books= new Books();
+
+books.create({author: 'bilal', title: 'mar jao'});
+books.create({author: 'bilal', title: 'mari jao'});
+books.create({author: 'al', title: 'marojao'});
+books.create({author: 'bill', title: ' jao'});
+books.create({author: 'ill', title: 'majao'});
+
+
+/* 
+can be value
+books.comparator= 'author'
+can be function
+books.comparator = function(modela,modelb){return modela.get('author').length -modelb.get('author').length}
+
+books.sort();
+*/
