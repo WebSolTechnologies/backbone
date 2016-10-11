@@ -31,7 +31,7 @@ var books= new Books();
 
 var main=$('#main');
 
-books.on('add',function(model){
+/* books.on('add',function(model){
   model.view= $("<h3>").text(model.get('title') + '(' + model.get('author') + ')');
   main.append(model.view);
 });
@@ -39,7 +39,7 @@ books.on('add',function(model){
 books.on('remove', function(model){
   model.view.remove();
 });
-
+*/
 books.create({author: 'bilal', title: 'mar jao'});
 books.create({author: 'bilal', title: 'mari jao'});
 books.create({author: 'al', title: 'marojao'});
@@ -71,15 +71,27 @@ error
 
 var BookView= Backbone.View.extend({
   tagName: 'li',
-  className: 'book book-item',
-  attributes: function(){
-    return {
-      'data-client-id': this.model.cid
-    };
+  template: _.template($("#BookViewTemplate").html()),
+  render: function(){
+    this.el.innerHTML = this.template(this.model.toJSON())
+    return this;
   }
 });
 
+var BooksView= Backbone.View.extend({
+  template: _.template($("#BooksViewTemplate").html()),
+  render: function(){
+    this.el.innerHTML= this.template(this.collection);
+    var ul = this.$('ul');
+    this.collection.each(function(model){
+      var bookView= new BookView({model: model});
+      ul.append(bookView.render().el);
+    })
+    return this;
+  }
 
-var MainView = Backbone.View.extend({
-  el: '#main'
 })
+
+
+var booksView= new BooksView({collection: books});
+main.append(booksView.render().el);

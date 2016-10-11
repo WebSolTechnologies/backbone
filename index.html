@@ -5,6 +5,15 @@
 </head>
 <body>
 <div id="main">
+  <script type="text/template" id='BookViewTemplate'>
+    <h2><%= title %></h2>
+    <h3><%= author %></h3>
+  </script>
+  <script type="text/template" id='BooksViewTemplate'>
+   <h1>books(<%=length %>)</h1>
+   <ul></ul>
+  </script>
+
 
   <script src='lib/jquery.js'></script>
   <script src='lib/underscore.js'></script>
