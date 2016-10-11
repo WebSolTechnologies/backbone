@@ -88,6 +88,13 @@ var BooksView= Backbone.View.extend({
     this.listenTo(this.collection,'add',this.updateNum);
 
   },
+  events: {
+    'click .nav' : 'handleClick'
+  },
+  handleClick: function(evt){
+    Backbone.history.navigate(evt.target.getAttribute('href'),{trigger: true});
+    evt.preventDefault();
+  },
   children: {},
   template: _.template($("#BooksViewTemplate").html()),
   render: function(){
@@ -124,7 +131,7 @@ var AddBookView= Backbone.View.extend({
       title: this.$('#title').val(),
       author: this.$('#author').val()
     });
-
+    Backbone.history.navigate('',{trigger: true});
   }
 
 
@@ -144,11 +151,11 @@ var BookRouter= Backbone.Router.extend({
   },
   list: function(){
     var booksView= new BooksView({collection: this.books});
-    main.append(booksView.render().el);
+    main.empty().append(booksView.render().el);
   },
   add: function(id){
    var addBookView= new AddBookView({collection: this.books})
-   main.append(addBookView.render().el);
+   main.empty().append(addBookView.render().el);
   }
 
 });
