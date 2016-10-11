@@ -131,13 +131,33 @@ var AddBookView= Backbone.View.extend({
 });
 
 
-var books= new Books();
-var addBookView= new AddBookView({collection: books})
-var booksView= new BooksView({collection: books});
 
-books.fetch().then(function(){
-  main
-  .append(addBookView.render().el)
-  .append(booksView.render().el);
+
+
+var BookRouter= Backbone.Router.extend({
+  initialize: function(opts){
+    this.books=opts.books;
+  },
+  routes: {
+    '': 'list',
+    'add': 'add'
+  },
+  list: function(){
+    var booksView= new BooksView({collection: this.books});
+    main.append(booksView.render().el);
+  },
+  add: function(id){
+   var addBookView= new AddBookView({collection: this.books})
+   main.append(addBookView.render().el);
+  }
 
 });
+var books= new Books();
+
+books.fetch().then(function(){
+  var router= new BookRouter({
+    books: books
+  });
+  Backbone.history.start({pushState: true});
+});
+
